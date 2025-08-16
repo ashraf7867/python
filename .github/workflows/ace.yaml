@@ -22,7 +22,7 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v1
         with:
-          client-id: ceb8daf8-0381-46ae-a470-563cdd6cc383       # GitHub App Registration client ID
+          client-id: 1fefb6ff-a46f-4087-ba37-17e05cd1dd20       # GitHub App Registration client ID
           tenant-id: 2d69b973-1e02-48c0-9695-bfe657e9874b         # Your Azure tenant
           subscription-id: 98612b5b-9b4e-4453-8cd0-30f9a687f192
           use-github-actions-oidc: true
