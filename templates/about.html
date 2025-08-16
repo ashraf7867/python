@@ -1,0 +1,167 @@
+{% extends "base.html" %}
+
+{% block title %}About - Task Manager{% endblock %}
+{% block header %}About Task Manager{% endblock %}
+{% block subtitle %}Learn more about this Flask web application{% endblock %}
+
+{% block content %}
+<div class="about-content">
+    <div class="feature-grid">
+        <div class="feature-card">
+            <h3>🐍 Built with Python</h3>
+            <p>This web application is built using Python and the Flask web framework, making it lightweight and easy to extend.</p>
+        </div>
+        
+        <div class="feature-card">
+            <h3>📝 Task Management</h3>
+            <p>Create, complete, and delete tasks with a simple and intuitive interface. Keep track of when tasks were created.</p>
+        </div>
+        
+        <div class="feature-card">
+            <h3>📱 Responsive Design</h3>
+            <p>The application works great on desktop, tablet, and mobile devices with a responsive design.</p>
+        </div>
+        
+        <div class="feature-card">
+            <h3>🔧 REST API</h3>
+            <p>Includes a simple REST API endpoint at <code>/api/tasks</code> that returns tasks in JSON format.</p>
+        </div>
+    </div>
+    
+    <div class="tech-stack">
+        <h2>Technology Stack</h2>
+        <ul class="tech-list">
+            <li><strong>Backend:</strong> Python 3.x with Flask framework</li>
+            <li><strong>Frontend:</strong> HTML5, CSS3, JavaScript (vanilla)</li>
+            <li><strong>Storage:</strong> In-memory storage (for demo - use database in production)</li>
+            <li><strong>Templating:</strong> Jinja2 (Flask's default template engine)</li>
+            <li><strong>Styling:</strong> Custom CSS with modern gradients and animations</li>
+        </ul>
+    </div>
+    
+    <div class="getting-started">
+        <h2>Getting Started</h2>
+        <div class="code-block">
+            <h4>1. Install Flask:</h4>
+            <code>pip install flask</code>
+            
+            <h4>2. Run the application:</h4>
+            <code>python app.py</code>
+            
+            <h4>3. Open your browser:</h4>
+            <code>http://localhost:5000</code>
+        </div>
+    </div>
+    
+    <div class="features-todo">
+        <h2>Potential Enhancements</h2>
+        <ul class="enhancement-list">
+            <li>Add user authentication and registration</li>
+            <li>Integrate with a database (SQLite, PostgreSQL, etc.)</li>
+            <li>Add task categories and tags</li>
+            <li>Implement task due dates and reminders</li>
+            <li>Add task priority levels</li>
+            <li>Include task search and filtering</li>
+            <li>Add task editing capabilities</li>
+            <li>Implement task sharing between users</li>
+        </ul>
+    </div>
+</div>
+
+<style>
+.about-content {
+    max-width: 100%;
+}
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.feature-card {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    padding: 25px;
+    border-radius: 10px;
+    border-left: 4px solid #667eea;
+    transition: transform 0.3s;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+}
+
+.feature-card h3 {
+    color: #495057;
+    margin-bottom: 15px;
+    font-size: 20px;
+}
+
+.feature-card p {
+    color: #6c757d;
+    line-height: 1.6;
+}
+
+.tech-stack, .getting-started, .features-todo {
+    margin-bottom: 40px;
+}
+
+.tech-stack h2, .getting-started h2, .features-todo h2 {
+    color: #495057;
+    margin-bottom: 20px;
+    font-size: 24px;
+    border-bottom: 2px solid #667eea;
+    padding-bottom: 10px;
+}
+
+.tech-list, .enhancement-list {
+    list-style: none;
+    padding: 0;
+}
+
+.tech-list li, .enhancement-list li {
+    background: #f8f9fa;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 5px;
+    border-left: 3px solid #28a745;
+}
+
+.enhancement-list li {
+    border-left-color: #17a2b8;
+}
+
+.code-block {
+    background: #2d3748;
+    color: #e2e8f0;
+    padding: 20px;
+    border-radius: 8px;
+    font-family: 'Courier New', monospace;
+}
+
+.code-block h4 {
+    color: #4facfe;
+    margin: 15px 0 10px 0;
+}
+
+.code-block h4:first-child {
+    margin-top: 0;
+}
+
+.code-block code {
+    background: #1a202c;
+    padding: 8px 12px;
+    border-radius: 4px;
+    display: block;
+    margin-bottom: 15px;
+    color: #68d391;
+}
+
+@media (max-width: 768px) {
+    .feature-grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+{% endblock %}

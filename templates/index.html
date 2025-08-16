@@ -1,0 +1,152 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="task-form">
+    <h2>Add New Task</h2>
+    <form method="POST" action="{{ url_for('add_task') }}">
+        <div class="form-group">
+            <input type="text" name="task" class="form-control" placeholder="Enter your task..." required>
+        </div>
+        <button type="submit" class="btn btn-primary">Add Task</button>
+    </form>
+</div>
+
+<hr style="margin: 30px 0; border: 1px solid #e9ecef;">
+
+<div class="task-list">
+    <h2>Your Tasks ({{ tasks|length }})</h2>
+    
+    {% if tasks %}
+        <div class="tasks">
+            {% for task in tasks %}
+                <div class="task-item {% if task.completed %}completed{% endif %}">
+                    <div class="task-content">
+                        <h3>{{ task.text }}</h3>
+                        <small class="task-date">Created: {{ task.created_at }}</small>
+                        {% if task.completed %}
+                            <span class="status-badge completed">✓ Completed</span>
+                        {% else %}
+                            <span class="status-badge pending">⏳ Pending</span>
+                        {% endif %}
+                    </div>
+                    <div class="task-actions">
+                        {% if not task.completed %}
+                            <a href="{{ url_for('complete_task', task_id=task.id) }}" class="btn btn-success btn-sm">Complete</a>
+                        {% endif %}
+                        <a href="{{ url_for('delete_task', task_id=task.id) }}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="empty-state">
+            <h3>No tasks yet!</h3>
+            <p>Add your first task above to get started.</p>
+        </div>
+    {% endif %}
+</div>
+
+<style>
+.task-form {
+    background: #f8f9fa;
+    padding: 25px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
+
+.task-form h2 {
+    color: #495057;
+    margin-bottom: 20px;
+}
+
+.task-item {
+    background: white;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s;
+}
+
+.task-item:hover {
+    border-color: #667eea;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.task-item.completed {
+    background: #f8f9fa;
+    opacity: 0.8;
+}
+
+.task-item.completed h3 {
+    text-decoration: line-through;
+    color: #6c757d;
+}
+
+.task-content h3 {
+    color: #495057;
+    margin-bottom: 5px;
+}
+
+.task-date {
+    color: #6c757d;
+    font-style: italic;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.status-badge.completed {
+    background: #d4edda;
+    color: #155724;
+}
+
+.status-badge.pending {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.task-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-sm {
+    padding: 8px 16px;
+    font-size: 14px;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 50px 20px;
+    color: #6c757d;
+}
+
+.empty-state h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+@media (max-width: 768px) {
+    .task-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .task-actions {
+        margin-top: 15px;
+        align-self: stretch;
+        justify-content: flex-end;
+    }
+}
+</style>
+{% endblock %}
