@@ -1,24 +1,31 @@
-name: Build and Push Docker to ACR
+name: Build & Push Docker to ACR via OIDC
 
 on:
   push:
     branches:
-      - main   # or any branch you want to trigger
+      - main  # or your preferred branch
 
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
 
+    permissions:
+      id-token: write    # Required for OIDC
+      contents: read     # Required to checkout code
+
     steps:
-      # Step 1: Checkout code
+      # Step 1: Checkout repo
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # Step 2: Login to Azure
+      # Step 2: Login to Azure via OIDC
       - name: Login to Azure
         uses: azure/login@v1
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          client-id: ceb8daf8-0381-46ae-a470-563cdd6cc383       # GitHub App Registration client ID
+          tenant-id: 2d69b973-1e02-48c0-9695-bfe657e9874b         # Your Azure tenant
+          subscription-id: 98612b5b-9b4e-4453-8cd0-30f9a687f192
+          use-github-actions-oidc: true
 
       # Step 3: Build Docker image
       - name: Build Docker image
@@ -29,3 +36,4 @@ jobs:
       - name: Push Docker image
         run: |
           docker push <ACR_NAME>.azurecr.io/<IMAGE_NAME>:${{ github.sha }}
+
