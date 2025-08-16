@@ -1,0 +1,31 @@
+name: Build and Push Docker to ACR
+
+on:
+  push:
+    branches:
+      - main   # or any branch you want to trigger
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout code
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Step 2: Login to Azure
+      - name: Login to Azure
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      # Step 3: Build Docker image
+      - name: Build Docker image
+        run: |
+          docker build -t <ACR_NAME>.azurecr.io/<IMAGE_NAME>:${{ github.sha }} .
+
+      # Step 4: Push Docker image to ACR
+      - name: Push Docker image
+        run: |
+          docker push <ACR_NAME>.azurecr.io/<IMAGE_NAME>:${{ github.sha }}
