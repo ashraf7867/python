@@ -35,5 +35,5 @@ jobs:
       # Step 4: Push Docker image to ACR
       - name: Push Docker image
         run: |
-          docker push genitest.azurecr.io/ashraf :${{ github.sha }}
+          docker push genitest.azurecr.io/ashraf:${{ github.sha }}
 
