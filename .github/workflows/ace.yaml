@@ -31,14 +31,14 @@ jobs:
       - name: Docker Login to ACR
         uses: azure/docker-login@v1
         with:
-          login-server: cloudquickstartregistry.azurecr.io
+          login-server: genitest.azurecr.io
           username: genitest
           password: JANtpM+ewmx5KJ4LsG7w2HE1JlkCNuXStqEysIVGqy+ACRCcaypG
 
       # Step 4: Build and Push Docker image
       - name: Build and Push Docker Image
         run: |
-          docker build -t cloudquickstartregistry.azurecr.io/myapp:1.0.0 .
-          docker push cloudquickstartregistry.azurecr.io/myapp:1.0.0
+          docker build -t genitest.azurecr.io.azurecr.io/myapp:1.0.0 .
+          docker pushgenitest.azurecr.io.azurecr.io/myapp:1.0.0
 
 
