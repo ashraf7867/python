@@ -11,7 +11,7 @@ jobs:
 
     permissions:
       id-token: write    # Required for OIDC
-      contents: read     # Required to checkout code
+      contents: read     # Required for checkout code
 
     steps:
       # Step 1: Checkout repo
@@ -22,21 +22,23 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v1
         with:
-          client-id: 1fefb6ff-a46f-4087-ba37-17e05cd1dd20       # GitHub App Registration client ID
-          tenant-id: 2d69b973-1e02-48c0-9695-bfe657e9874b         # Your Azure tenant
+          client-id: 1fefb6ff-a46f-4087-ba37-17e05cd1dd20        # GitHub App Registration client ID
+          tenant-id:  2d69b973-1e02-48c0-9695-bfe657e9874b        # Your Azure tenant ID
           subscription-id: 98612b5b-9b4e-4453-8cd0-30f9a687f192
           use-github-actions-oidc: true
 
-      # Step 3: Build Docker image
-      - name: Build Docker image
-        run: |
-          docker build -t genitest.azurecr.io/ashraf:${{ github.sha }} .
-           name: Login to ACR
-          run: |
-          az acr login --name genitest
+      # Step 3: Login to ACR (Service Principal creds if not using OIDC-based ACR auth)
+      - name: Docker Login to ACR
+        uses: azure/docker-login@v1
+        with:
+          login-server: cloudquickstartregistry.azurecr.io
+          username: genitest
+          password: JANtpM+ewmx5KJ4LsG7w2HE1JlkCNuXStqEysIVGqy+ACRCcaypG
 
-      # Step 4: Push Docker image to ACR
-      - name: Push Docker image
+      # Step 4: Build and Push Docker image
+      - name: Build and Push Docker Image
         run: |
-          docker push genitest.azurecr.io/ashraf:${{ github.sha }}
+          docker build -t cloudquickstartregistry.azurecr.io/myapp:1.0.0 .
+          docker push cloudquickstartregistry.azurecr.io/myapp:1.0.0
+
 
