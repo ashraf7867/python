@@ -37,8 +37,8 @@ jobs:
 
       # Step 4: Build and Push Docker image
       - name: Build and Push Docker Image
-        run: |
-          docker build -t genitest.azurecr.io.azurecr.io/myapp:1.0.0 .
-          docker push genitest.azurecr.io.azurecr.io/myapp:1.0.0
+  run: |
+    docker build -t genitest.azurecr.io/myapp:${{ github.sha }} .
+    docker push genitest.azurecr.io/myapp: ${{ github.sha }}
 
 
