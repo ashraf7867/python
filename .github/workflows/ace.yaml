@@ -39,6 +39,6 @@ jobs:
       - name: Build and Push Docker Image
         run: |
           docker build -t genitest.azurecr.io.azurecr.io/myapp:1.0.0 .
-          docker pushgenitest.azurecr.io.azurecr.io/myapp:1.0.0
+          docker push genitest.azurecr.io.azurecr.io/myapp:1.0.0
 
 
