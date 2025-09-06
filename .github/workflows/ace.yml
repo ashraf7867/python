@@ -22,12 +22,12 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v1
         with:
-          client-id: 1fefb6ff-a46f-4087-ba37-17e05cd1dd20        # GitHub App Registration client ID
-          tenant-id:  2d69b973-1e02-48c0-9695-bfe657e9874b        # Your Azure tenant ID
+          client-id: 1fefb6ff-a46f-4087-ba37-17e05cd1dd20
+          tenant-id: 2d69b973-1e02-48c0-9695-bfe657e9874b
           subscription-id: 98612b5b-9b4e-4453-8cd0-30f9a687f192
           use-github-actions-oidc: true
 
-      # Step 3: Login to ACR (Service Principal creds if not using OIDC-based ACR auth)
+      # Step 3: Login to ACR
       - name: Docker Login to ACR
         uses: azure/docker-login@v1
         with:
@@ -38,8 +38,7 @@ jobs:
       # Step 4: Build and Push Docker image
       - name: Build and Push Docker Image
         run: |
-         run: docker build -t genitest.azurecr.io/myapp:${{ github.sha }} .
-         docker push genitest.azurecr.io/myapp: ${{ github.sha }}
-
+          docker build -t genitest.azurecr.io/myapp:${{ github.sha }} .
+          docker push genitest.azurecr.io/myapp:${{ github.sha }}
 
 
