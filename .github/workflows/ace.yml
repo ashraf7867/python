@@ -3,22 +3,20 @@ name: Build & Push Docker to ACR via OIDC
 on:
   push:
     branches:
-      - main  # or your preferred branch
+      - main
 
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
 
     permissions:
-      id-token: write    # Required for OIDC
-      contents: read     # Required for checkout code
+      id-token: write
+      contents: read
 
     steps:
-      # Step 1: Checkout repo
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # Step 2: Login to Azure via OIDC
       - name: Login to Azure
         uses: azure/login@v1
         with:
@@ -27,7 +25,6 @@ jobs:
           subscription-id: 98612b5b-9b4e-4453-8cd0-30f9a687f192
           use-github-actions-oidc: true
 
-      # Step 3: Login to ACR
       - name: Docker Login to ACR
         uses: azure/docker-login@v1
         with:
@@ -35,18 +32,20 @@ jobs:
           username: genitest
           password: JANtpM+ewmx5KJ4LsG7w2HE1JlkCNuXStqEysIVGqy+ACRCcaypG
 
-      # Step 4: Build and Push Docker image
       - name: Build and Push Docker Image
         run: |
           docker build -t genitest.azurecr.io/myapp:${{ github.sha }} .
           docker push genitest.azurecr.io/myapp:${{ github.sha }}
 
-          name: Update Container Instance
+      - name: Update Container Instance
         run: |
           az container update \
-            --resource-group test \                         # change to your RG
-            --name test-01
- \                                                     
+            --resource-group test \
+            --name test-01 \
             --image genitest.azurecr.io/myapp:${{ github.sha }}
+
+
+      
+
 
 
